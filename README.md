@@ -4,7 +4,8 @@ If help is needed, be free to dm me: Eclipsed#4334
 
 - [x] Events System
 - [x] Module System
-- [ ] Command System
+- [x] Command System
+- [x] Setting System
 - [ ] Account Manager (Alt Manager)
 
 First things first, you need to call the ClientMain class in Minecraft.java. Search for the "startGame" method, and add this line:
