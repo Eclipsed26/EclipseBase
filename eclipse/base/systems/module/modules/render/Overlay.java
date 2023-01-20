@@ -1,6 +1,6 @@
 package eclipse.base.systems.module.modules.render;
 
-import eclipse.base.ClientMain;
+import eclipse.base.ClientBase;
 import eclipse.base.systems.event.OverlayEvent;
 import eclipse.base.systems.module.Mod;
 import eclipse.base.systems.module.Module;
@@ -17,12 +17,12 @@ public class Overlay extends Module {
     public Listener<OverlayEvent> overlayListener = event -> {
         ScaledResolution sr = new ScaledResolution(mc);
 
-        mc.fontRendererObj.drawStringWithShadow(ClientMain.getInstance.fullName, 2, 2, -1);
+        mc.fontRendererObj.drawStringWithShadow(ClientBase.getInstance().fullName, 2, 2, -1);
 
-        ClientMain.getInstance.moduleManager.getModules().sort(Comparator.comparingDouble(m -> mc.fontRendererObj.getStringWidth(((Module) m).getName())).reversed());
+        ClientBase.getInstance().getModuleManager().getModules().sort(Comparator.comparingDouble(m -> mc.fontRendererObj.getStringWidth(((Module) m).getName())).reversed());
 
         int index = 0;
-        for (Module module : ClientMain.getInstance.moduleManager.getModules()) {
+        for (Module module : ClientBase.getInstance().getModuleManager().getModules()) {
             if (module.isEnabled()) {
                 mc.fontRendererObj.drawStringWithShadow(module.getName(), sr.getScaledWidth() - mc.fontRendererObj.getStringWidth(module.getName()) - 2, index + 2, -1);
                 index += mc.fontRendererObj.FONT_HEIGHT + 2;

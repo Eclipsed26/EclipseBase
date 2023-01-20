@@ -1,8 +1,13 @@
 package eclipse.base.systems.module;
 
-import eclipse.base.ClientMain;
+import eclipse.base.ClientBase;
+import eclipse.base.systems.module.setting.Setting;
 import eclipse.base.utils.LogUtils;
 import net.minecraft.client.Minecraft;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Module {
 
@@ -40,14 +45,14 @@ public class Module {
 
     public void onEnable() {
         enabled = true;
-        ClientMain.getInstance.eventBus.register(this);
-        LogUtils.inGameLog("Module " + getName() + " enabled.", LogUtils.LogType.SUCCESS);
+        ClientBase.getInstance().getEventBus().register(this);
+        LogUtils.inGameLog("Module " + getName() + " enabled.");
     }
 
     public void onDisable() {
         enabled = false;
-        ClientMain.getInstance.eventBus.unregister(this);
-        LogUtils.inGameLog("Module " + getName() + " disabled.", LogUtils.LogType.ERROR);
+        ClientBase.getInstance().getEventBus().unregister(this);
+        LogUtils.inGameLog("Module " + getName() + " disabled.");
     }
 
     // TODO: Getters
@@ -62,6 +67,16 @@ public class Module {
 
     public int getKey() {
         return key;
+    }
+
+    public List<Setting> settings = new ArrayList<Setting>();
+
+    public void addSetting(Setting... settings) {
+        this.settings.addAll(Arrays.asList(settings));
+    }
+
+    public List<Setting> getSettings() {
+        return settings;
     }
 
 }

@@ -2,9 +2,9 @@ package eclipse.base.systems.module;
 
 import eclipse.base.systems.module.modules.TestMod;
 import eclipse.base.systems.module.modules.render.Overlay;
-import eclipse.base.utils.LogUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ModuleManager {
     ArrayList<Module> modules = new ArrayList<>(); // Arraylist of modules
@@ -17,10 +17,7 @@ public class ModuleManager {
     }
 
     public void addModule(Module... module) {
-        for (Module m : module) {
-            modules.add(m);
-            LogUtils.consoleLog("Registered " + m.getName(), LogUtils.LogType.SUCCESS);
-        }
+         modules.addAll(Arrays.asList(module));
     }
 
     public ArrayList<Module> getModules() {
