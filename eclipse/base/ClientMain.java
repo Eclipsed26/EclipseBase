@@ -12,18 +12,18 @@ import org.lwjgl.opengl.Display;
  *
  * Before you start, you need to know that this is a client base, it is a BASE for YOU START coding your own client.
  * -
- * First things first, you need to call the ClientMain class in Minecraft.java. Search for the "startGame" method, and add this line:
- * ClientMain.getInstance.init();
+ * First things first, you need to call the ClientMein class in Minecraft.java. Search for the "startGame" method, and add this line:
+ * ClientMein.getInstance.init();
  * -
  * Next, you need to call the events:
  * For the key event, you need to go to Minecraft.java, and search for "k == 1" (line 1950 - 1960), and add this line:
- * ClientMain.getInstance.eventBus.call(new KeyEvent(k));
+ * ClientMein.getInstance.eventBus.call(new KeyEvent(k));
  * -
  * For the tick event, you need to go to Minecraft.java, and search for "runTick" (line 1120 - 1134), and add this line:
- * ClientMain.getInstance.eventBus.call(new TickEvent());
+ * ClientMein.getInstance.eventBus.call(new TickEvent());
  * -
  * For the render event, you need to go to GuiIngame.java, and search for "renderGameOverlay", at the very bottom of the method (before GlStateManager.color), add this line:
- * ClientMain.getInstance.eventBus.call(new OverlayEvent(partialTicks));
+ * ClientMein.getInstance.eventBus.call(new OverlayEvent(partialTicks));
  * -
  * To create a new event, you need to create a new class, and implements Event:
  * public class TestEvent implements Event (if you want a cancelable event, you need to implement CancellableEvent) {
@@ -41,26 +41,26 @@ import org.lwjgl.opengl.Display;
 public enum ClientMain {
     getInstance;
 
-    public final ClientInfo clientInfo = new ClientInfo("BaseClient", "?", 1.0); // TODO: Client information
+    public final ClientInfo clientInfo = new ClientInfo("BaseClient", "Me", 1.0);
 
     public final String fullName = clientInfo.getName() + " " + clientInfo.getVersion();
 
-    public EventBus eventBus; // TODO: Create the EventBus instance
-    public ModuleManager moduleManager; // TODO: Create the ModuleManager instance
+    public EventBus eventBus;
+    public ModuleManager moduleManager;
 
     public void init() {
         Display.setTitle(clientInfo.getName() + " " + clientInfo.getVersion());
 
-        eventBus = new EventBus(); // TODO: Initialize the EventBus instance
-        eventBus.register(this); // TODO: Register this class as a listener (for the KeyEvent)
+        eventBus = new EventBus();
+        eventBus.register(this);
 
-        moduleManager = new ModuleManager(); // TODO: Initialize the ModuleManager instance
-        moduleManager.init(); // TODO: Initialize the modules
+        moduleManager = new ModuleManager();
+        moduleManager.init();
 
-        moduleManager.getModule(Overlay.class).setEnabled(true); // TODO: Enable the Overlay module
+        moduleManager.getModule(Overlay.class).setEnabled(true);
     }
 
-    @EventHandler // TODO: This method will be called when a KeyEvent is posted (called)
+    @EventHandler
     public final Listener<KeyEvent> keyListener = event -> {
         moduleManager.getModules().forEach(module -> {
             if (module.getKey() == event.getKey()) {
@@ -69,9 +69,7 @@ public enum ClientMain {
         });
     };
 
-    public class ClientInfo { // TODO: ClientInfo class
-
-        // TODO: Information vars
+    public class ClientInfo {
 
         public String name;
         public String dev;
@@ -82,8 +80,6 @@ public enum ClientMain {
             this.dev = dev;
             this.version = version;
         }
-
-        // TODO: Getters
 
         public String getName() {
             return name;
